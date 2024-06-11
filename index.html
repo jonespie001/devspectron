@@ -44,14 +44,14 @@
         button:hover {
             background-color: #0056b3;
         }
-        pre {
+        #results {
             width: 300px;
-            white-space: pre-wrap;
-            word-wrap: break-word;
             background-color: #f1f1f1;
             padding: 10px;
             border: 1px solid #ccc;
             border-radius: 4px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
         }
     </style>
 </head>
@@ -64,7 +64,7 @@
         <input type="text" id="specs" name="specs" required>
         <button type="button" onclick="fetchSpecs()">Get Specs</button>
     </form>
-    <pre id="results"></pre>
+    <div id="results"></div>
 
     <script>
         async function fetchSpecs() {
@@ -76,10 +76,19 @@
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
                 const data = await response.json();
-                document.getElementById('results').textContent = JSON.stringify(data, null, 2);
+                const resultsDiv = document.getElementById('results');
+                resultsDiv.innerHTML = formatSpecs(data);
             } catch (error) {
                 document.getElementById('results').textContent = `Error: ${error.message}`;
             }
+        }
+
+        function formatSpecs(data) {
+            let formattedSpecs = "";
+            for (const [key, value] of Object.entries(data)) {
+                formattedSpecs += `<strong>${key.replace(/_/g, ' ').toUpperCase()}</strong>: ${value}<br><br>`;
+            }
+            return formattedSpecs;
         }
     </script>
 </body>
