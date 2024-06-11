@@ -70,9 +70,16 @@
         async function fetchSpecs() {
             const deviceName = document.getElementById('device_name').value;
             const specs = document.getElementById('specs').value;
-            const response = await fetch(`https://devspectron-5e282f547f21.herokuapp.com/get_specs?device_name=${encodeURIComponent(deviceName)}&specs=${encodeURIComponent(specs)}`);
-            const data = await response.json();
-            document.getElementById('results').textContent = JSON.stringify(data, null, 2);
+            try {
+                const response = await fetch(`https://devspectron-5e282f547f21.herokuapp.com/get_specs?device_name=${encodeURIComponent(deviceName)}&specs=${encodeURIComponent(specs)}`);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const data = await response.json();
+                document.getElementById('results').textContent = JSON.stringify(data, null, 2);
+            } catch (error) {
+                document.getElementById('results').textContent = `Error: ${error.message}`;
+            }
         }
     </script>
 </body>
