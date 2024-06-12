@@ -16,6 +16,7 @@
             height: 100vh;
             margin: 0;
             padding: 20px;
+            transition: background-color 0.5s; /* Smooth background color transition */
         }
         h1 {
             margin-bottom: 20px;
@@ -110,6 +111,7 @@
                 // Change background color
                 changeBackgroundColor();
             } catch (error) {
+                console.error('Fetch error:', error); // Log error to console
                 document.getElementById('results').textContent = `Error: ${error.message}`;
             } finally {
                 // Restore button text and state
