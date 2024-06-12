@@ -52,6 +52,8 @@
             border-radius: 4px;
             white-space: pre-wrap;
             word-wrap: break-word;
+            overflow-y: auto; /* Ensure scrolling is enabled */
+            max-height: 60vh; /* Adjust this value as needed */
         }
     </style>
 </head>
@@ -71,7 +73,7 @@
             const deviceName = document.getElementById('device_name').value;
             const specs = document.getElementById('specs').value;
             try {
-                const response = await fetch(`https://devspectron-5e282f547f21.herokuapp.com/get_specs?device_name=${encodeURIComponent(deviceName)}&specs=${encodeURIComponent(specs)}`);
+                const response = await fetch(`https://your-app-name.herokuapp.com/get_specs?device_name=${encodeURIComponent(deviceName)}&specs=${encodeURIComponent(specs)}`);
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
